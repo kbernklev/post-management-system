@@ -4,44 +4,39 @@
 
 <script setup>
 
-import { defineProps, computed } from 'vue';
+import { computed } from 'vue';
+import { useBanner } from '@/composables/banner'
 
-const props = defineProps({
-  action: {
-    type: String,
-  },
-  status: {
-    type: String
-  },
-  errorMessage: {
-    type: String
-  }
-});
+const { action, status } = useBanner()
 
 const successText = computed(() => {
-   switch (props.action) {
+   switch (action.value) {
     case "delete":
       return "Success: Post was deleted"
     case "create":
       return "Success: Post was created"
-    default: 
+    case "update": 
       return "Success: Post was updated"
+    default:
+      return "Loading..."
   }
 })
 
 const errorText = computed(() => {
-   switch (props.action) {
+   switch (action.value) {
     case "delete":
       return "Error: Post could not be deleted"
     case "create":
       return "Error: Post could not be created"
-    default: 
+    case "update": 
       return "Error: Post could not be updated"
+    default:
+      return "Loading..."
   }
 })
 
 const responseText = computed(() => {
-  return props.status === "error" ? errorText : successText
+  return status.value === "error" ? errorText : successText
 })
 
 </script>

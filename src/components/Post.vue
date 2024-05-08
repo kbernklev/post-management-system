@@ -1,5 +1,5 @@
 <template>
-  <form class="flex flex-col justify-center items-center text-gray-800 ">
+  <form v-if="post !== null" class="flex flex-col justify-center items-center text-gray-800 ">
     <h1 class="text-lg font-semibold mb-4">
       <label for="body-input" class="text-sm font-normal">Title</label>
       <input v-model="post.title" :disabled="!editing" :class="`${editing ? 'text-gray-800' : 'text-gray-500'} w-[540px] bg-gray-100 border border-gray-500 p-2`">
@@ -19,13 +19,10 @@
 </template>
 
 <script setup>
-  import { ref, defineProps } from 'vue';
+  import { defineProps } from 'vue';
+  import { useUsers } from '@/composables/users'
 
-  var users = ref([])
-
-  fetch('https://jsonplaceholder.typicode.com/users/')
-  .then(response => response.json())
-  .then(data => users.value = data)
+  const { users } = useUsers()
 
   const props = defineProps({
     post: {
