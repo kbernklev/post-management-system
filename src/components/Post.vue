@@ -7,7 +7,7 @@
     <body>
       <label for="author-select" class="text-sm">Author</label>
       <select v-model="post.userId" name="authors" id="author-select" :class="`${editing ? 'text-gray-800' : 'text-gray-500'} w-[540px] bg-gray-100 border border-gray-500 p-2 mb-4`">
-        <option :value="user.id" v-for="user, u in users" :key="u">
+        <option :disabled="!editing" :value="user.id" v-for="user in users" :key="user.id">
           {{ user.name }}
         </option>
       </select>

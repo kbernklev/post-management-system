@@ -8,9 +8,9 @@
       </tr>
     </thead>
     <tbody>
-      <tr class="border-b bg-gray-800 border-gray-700" v-for="post, p in posts" :key="p">
+      <tr class="border-b bg-gray-800 border-gray-700" v-for="post in posts" :key="post.id">
         <td class="px-6 py-4"><button @click="showPost(post.id)">{{post.title}}</button></td>
-        <td class="px-6 py-4">{{truncateString(post.body)}}...</td>
+        <td class="px-6 py-4 truncate max-w-96">{{ post.body }}</td>
         <td class="px-6 py-4">{{post.userId}}</td>
       </tr>
     </tbody>
@@ -22,16 +22,11 @@
 
   const props = defineProps({
     posts: {
-      type: Array,
       required: true,
     },
   })
 
   const emit = defineEmits(["showPost"])
-
-  function truncateString(s) {
-    return s.length > 100 ? s.slice(0, 50) : s
-  }
 
   function showPost(id) {
     emit("showPost", id)
